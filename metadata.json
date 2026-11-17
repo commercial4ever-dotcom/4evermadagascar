@@ -1,0 +1,6 @@
+{
+  "name": "4EVER Madagascar",
+  "description": "4EVER Madagascar — Modern handcraft. Création, personnalisation, impression et fabrication sur mesure à Antananarivo. Catalogue interactif et demande de devis B2B.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

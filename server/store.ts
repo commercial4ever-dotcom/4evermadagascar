@@ -1,0 +1,128 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import crypto from 'node:crypto';
+import type { CategoryItem, DatabaseSchema } from './types.ts';
+
+export const DATA_DIR = path.resolve(process.cwd(), 'data');
+export const UPLOADS_DIR = path.join(DATA_DIR, 'uploads');
+export const QUOTE_ATTACHMENTS_DIR = path.join(DATA_DIR, 'attachments');
+export const DB_PATH = path.join(DATA_DIR, 'db.json');
+export const PDF_PATH = path.join(DATA_DIR, 'catalogue-2027.pdf');
+
+export const OFFICIAL_CATEGORIES: CategoryItem[] = [
+  { id: 'cat-bureau', name: 'Bureau et papeterie', slug: 'bureau-et-papeterie', subcategories: [] },
+  { id: 'cat-goodies', name: 'Goodies et objets publicitaires', slug: 'goodies-et-objets-publicitaires', subcategories: [] },
+  { id: 'cat-textiles', name: 'Textiles et accessoires', slug: 'textiles-et-accessoires', subcategories: [] },
+  { id: 'cat-boissons', name: 'Mugs, gourdes et boissons', slug: 'mugs-gourdes-et-boissons', subcategories: [] },
+  { id: 'cat-sacs', name: 'Sacs et maroquinerie', slug: 'sacs-et-maroquinerie', subcategories: [] },
+  { id: 'cat-coffrets', name: 'Coffrets cadeaux', slug: 'coffrets-cadeaux', subcategories: [] },
+  { id: 'cat-packaging', name: 'Packaging et boîtes', slug: 'packaging-et-boites', subcategories: [] },
+  { id: 'cat-bois', name: 'Objets en bois', slug: 'objets-en-bois', subcategories: [] },
+  { id: 'cat-deco', name: 'Décoration et événements', slug: 'decoration-et-evenements', subcategories: [] },
+  { id: 'cat-signaletique', name: 'Signalétique et PLV', slug: 'signaletique-et-plv', subcategories: [] },
+  { id: 'cat-autres', name: 'Autres créations', slug: 'autres-creations', subcategories: [] },
+];
+
+export const OFFICIAL_REALISATION_CATEGORIES: string[] = [
+  'Enseignes et signalétique',
+  'Personnalisation d\'objets',
+  'Coffrets et packaging',
+  'Créations en bois',
+  'Textile',
+  'Événementiel',
+  'Impression et communication visuelle',
+];
+
+function createDefaultDb(): DatabaseSchema {
+  return {
+    categories: OFFICIAL_CATEGORIES,
+    products: [],
+    realisations: [],
+    quotes: [],
+    contacts: [],
+    settings: {
+      cataloguePdfUrl: '',
+      cataloguePdfName: '',
+      cataloguePdfUpdatedAt: '',
+      socialLinks: {
+        facebook: '',
+        instagram: '',
+        linkedin: '',
+        tiktok: '',
+      },
+      pageContent: {
+        heroTitle: 'Vos idées prennent forme chez 4EVER.',
+        heroSubtitle: 'Création, personnalisation et fabrication sur mesure pour donner vie à vos projets.',
+        aboutIntro:
+          '4EVER Madagascar est une marque de création, personnalisation et production installée à Antananarivo qui transforme les idées en objets uniques. Nous accompagnons particuliers, entreprises et marques dans la création d\'univers visuels, d\'objets personnalisés et de pièces décoratives et mobiliers design.',
+        aboutAtelier:
+          'Notre atelier à Antananarivo réunit des équipements de découpe et gravure laser CO₂, d\'usinage CNC sur bois, d\'impression UV-DTF, DTF textile, sublimation, confection textile et fabrication d\'enseignes.',
+        aboutTeamNote: 'Emplacement prévu pour la photographie officielle de l\'équipe 4EVER Madagascar.',
+        aboutTeamImageUrl: '',
+        aboutAtelierImageUrl: '',
+        aboutPartnersNote: 'Emplacement prévu pour les logos des clients et partenaires autorisés.',
+        serviceImages: {},
+      },
+    },
+    admin: null,
+  };
+}
+
+export function ensureDirectories(): void {
+  fs.mkdirSync(DATA_DIR, { recursive: true });
+  fs.mkdirSync(UPLOADS_DIR, { recursive: true });
+  fs.mkdirSync(QUOTE_ATTACHMENTS_DIR, { recursive: true });
+}
+
+export function readDb(): DatabaseSchema {
+  ensureDirectories();
+  if (!fs.existsSync(DB_PATH)) {
+    const initial = createDefaultDb();
+    writeDb(initial);
+    return initial;
+  }
+  try {
+    const raw = fs.readFileSync(DB_PATH, 'utf-8');
+    const parsed = JSON.parse(raw) as Partial<DatabaseSchema>;
+    const defaults = createDefaultDb();
+    return {
+      categories: Array.isArray(parsed.categories) && parsed.categories.length > 0 ? parsed.categories : defaults.categories,
+      products: Array.isArray(parsed.products) ? parsed.products : [],
+      realisations: Array.isArray(parsed.realisations) ? parsed.realisations : [],
+      quotes: Array.isArray(parsed.quotes) ? parsed.quotes : [],
+      contacts: Array.isArray(parsed.contacts) ? parsed.contacts : [],
+      settings: {
+        ...defaults.settings,
+        ...(parsed.settings || {}),
+        socialLinks: {
+          ...defaults.settings.socialLinks,
+          ...(parsed.settings?.socialLinks || {}),
+        },
+        pageContent: {
+          ...defaults.settings.pageContent,
+          ...(parsed.settings?.pageContent || {}),
+          serviceImages: {
+            ...defaults.settings.pageContent.serviceImages,
+            ...(parsed.settings?.pageContent?.serviceImages || {}),
+          },
+        },
+      },
+      admin: parsed.admin ?? null,
+    };
+  } catch {
+    const fallback = createDefaultDb();
+    writeDb(fallback);
+    return fallback;
+  }
+}
+
+export function writeDb(db: DatabaseSchema): void {
+  ensureDirectories();
+  const tmpPath = `${DB_PATH}.${crypto.randomBytes(4).toString('hex')}.tmp`;
+  fs.writeFileSync(tmpPath, JSON.stringify(db, null, 2), 'utf-8');
+  fs.renameSync(tmpPath, DB_PATH);
+}
+
+export function makeId(prefix: string): string {
+  return `${prefix}_${Date.now().toString(36)}_${crypto.randomBytes(3).toString('hex')}`;
+}
