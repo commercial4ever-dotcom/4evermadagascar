@@ -190,27 +190,31 @@ export function QuotePage({ data }: QuotePageProps) {
   };
 
   return (
-    <div className="bg-[#FAF8F5] min-h-[75vh]">
-      <section className="relative overflow-hidden bg-[#073D37] text-white border-b border-white/10">
+    <div className="bg-[#052E29] min-h-[75vh] text-[#1A1A1A]">
+      <section className="relative overflow-hidden bg-[#073D37] text-white border-b border-[#E4DDD2]/12">
         <StudioBackdrop variant="emerald" showPattern />
-        <div className="relative z-10 max-w-[1320px] mx-auto px-5 sm:px-8 lg:px-10 py-16 lg:py-24">
-          <div className="max-w-3xl space-y-4">
-            <p className="type-kicker text-[#ED6F2C]">
-              Devis B2B &amp; sur mesure
-            </p>
-            <h1 className="type-hero text-white">
-              Demander un devis
-            </h1>
-            <p className="type-intro text-[#E4DDD2]/85 max-w-2xl">
-              Décrivez votre projet ou validez votre sélection d&apos;articles. Aucune création de compte n&apos;est requise.
-            </p>
+        <div className="relative z-10 max-w-[1320px] mx-auto px-5 sm:px-8 lg:px-10 py-14 sm:py-20">
+          <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.95fr)] gap-8 lg:gap-16 items-end">
+            <div className="space-y-4 min-w-0">
+              <p className="type-kicker text-[#ED6F2C]">
+                Devis B2B &amp; sur mesure
+              </p>
+              <h1 className="type-hero text-[#E4DDD2] max-w-[14ch]">
+                Demander un devis.
+              </h1>
+            </div>
+            <div className="min-w-0">
+              <p className="type-intro text-[#E4DDD2]/85">
+                Décrivez votre projet ou validez votre sélection d&apos;articles. Aucune création de compte n&apos;est requise.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
       <section className="max-w-[1120px] mx-auto px-5 sm:px-8 lg:px-10 py-14 lg:py-20">
         {result ? (
-          <div className="bg-[#E4DDD2]/30 rounded-2xl border border-[#073D37]/12 p-8 sm:p-10 space-y-6">
+          <div className="bg-[#EFE9DF] rounded-2xl border border-[#E4DDD2]/25 p-8 sm:p-10 space-y-6">
             {result.emailSent ? (
               <div className="flex items-start gap-4">
                 <CheckCircle2 className="w-8 h-8 text-emerald-700 shrink-0" />

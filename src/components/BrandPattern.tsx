@@ -1,11 +1,5 @@
-import { useRef } from 'react';
 import type { CSSProperties } from 'react';
-import {
-  motion,
-  useReducedMotion,
-  useScroll,
-  useTransform,
-} from 'motion/react';
+import { motion, useReducedMotion } from 'motion/react';
 
 import multicolorPattern from '../assets/brand/pattern-multicolor.png';
 import monochromeDarkPattern from '../assets/brand/pattern-monochrome-dark.png';
@@ -55,10 +49,14 @@ const PATTERN_ASSETS: Record<BrandPatternVariant, string> = {
   multicolor: multicolorPattern,
 };
 
+/**
+ * Discreet official pattern opacities (2%–5%) so typography and B&W illustrations
+ * always remain the clear focal points.
+ */
 const DEFAULT_OPACITY: Record<BrandPatternVariant, number> = {
-  'monochrome-dark': 0.045,
-  'monochrome-light': 0.055,
-  multicolor: 0.16,
+  'monochrome-dark': 0.03,
+  'monochrome-light': 0.035,
+  multicolor: 0.045,
 };
 
 const MASK_GRADIENTS: Record<BrandPatternMask, string | undefined> = {
@@ -66,15 +64,15 @@ const MASK_GRADIENTS: Record<BrandPatternMask, string | undefined> = {
   'fade-edges':
     'linear-gradient(to bottom, transparent 0%, black 18%, black 82%, transparent 100%)',
   'fade-left':
-    'linear-gradient(to left, black 10%, rgba(0,0,0,0.65) 48%, transparent 92%)',
+    'linear-gradient(to left, black 10%, rgba(0,0,0,0.55) 48%, transparent 92%)',
   'fade-right':
-    'linear-gradient(to right, black 10%, rgba(0,0,0,0.65) 48%, transparent 92%)',
+    'linear-gradient(to right, black 10%, rgba(0,0,0,0.55) 48%, transparent 92%)',
   'fade-bottom':
-    'linear-gradient(to bottom, black 25%, rgba(0,0,0,0.45) 70%, transparent 100%)',
+    'linear-gradient(to bottom, black 25%, rgba(0,0,0,0.4) 70%, transparent 100%)',
   'fade-top':
-    'linear-gradient(to top, black 25%, rgba(0,0,0,0.45) 70%, transparent 100%)',
+    'linear-gradient(to top, black 25%, rgba(0,0,0,0.4) 70%, transparent 100%)',
   radial:
-    'radial-gradient(ellipse 75% 75% at 50% 50%, black 35%, rgba(0,0,0,0.4) 70%, transparent 100%)',
+    'radial-gradient(ellipse 72% 72% at 50% 50%, black 30%, rgba(0,0,0,0.35) 68%, transparent 100%)',
 };
 
 const POSITION_CLASSES: Record<BrandPatternPosition, string> = {
@@ -88,59 +86,39 @@ const POSITION_CLASSES: Record<BrandPatternPosition, string> = {
   'left-edge': 'top-1/2 -translate-y-1/2 -left-16',
 };
 
+const EASE_SMOOTH: [number, number, number, number] = [0.22, 1, 0.36, 1];
+
 /**
  * BrandPattern — Renders exclusively the official 4EVER graphic grid assets
- * without any procedural drawing or proportion distortion.
+ * localized discreetly in corners, edges, or transitions at 2%–5% opacity.
  */
 export function BrandPattern({
   variant = 'monochrome-dark',
   opacity,
-  position = 'full',
+  position = 'top-right',
   scale = 1,
-  blur = 0,
-  parallax = false,
-  mask = 'none',
+  mask = 'radial',
   repeat = false,
-  tileSize = 420,
+  tileSize = 380,
   reveal = true,
   className = '',
 }: BrandPatternProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
   const shouldReduceMotion = useReducedMotion();
-
-  const resolvedOpacity = opacity ?? DEFAULT_OPACITY[variant];
-  const parallaxDistance =
-    typeof parallax === 'number' ? parallax : parallax ? 24 : 0;
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start end', 'end start'],
-  });
-
-  const yOffset = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [-parallaxDistance, parallaxDistance],
-  );
-
+  const resolvedOpacity = Math.min(opacity ?? DEFAULT_OPACITY[variant], 0.055);
   const assetSrc = PATTERN_ASSETS[variant];
   const maskStyle = MASK_GRADIENTS[mask];
 
-  const wrapperMaskStyle: CSSProperties = {
-    ...(maskStyle
-      ? {
-          maskImage: maskStyle,
-          WebkitMaskImage: maskStyle,
-        }
-      : {}),
-    ...(blur > 0 ? { filter: `blur(${blur}px)` } : {}),
-  };
+  const wrapperMaskStyle: CSSProperties = maskStyle
+    ? {
+        maskImage: maskStyle,
+        WebkitMaskImage: maskStyle,
+      }
+    : {};
 
   if (repeat || position === 'full') {
     const uniformTile = Math.round(tileSize * scale);
     return (
       <div
-        ref={containerRef}
         className={`absolute inset-0 overflow-hidden pointer-events-none select-none ${className}`}
         style={wrapperMaskStyle}
         aria-hidden="true"
@@ -152,21 +130,15 @@ export function BrandPattern({
               : { opacity: resolvedOpacity }
           }
           whileInView={{ opacity: resolvedOpacity }}
-          viewport={{ once: true, amount: 'some' }}
-          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+          viewport={{ once: true, amount: 0.05 }}
+          transition={{ duration: 0.7, ease: EASE_SMOOTH }}
           style={{
-            y:
-              !shouldReduceMotion && parallaxDistance !== 0
-                ? yOffset
-                : undefined,
             backgroundImage: `url(${assetSrc})`,
             backgroundRepeat: 'repeat',
             backgroundPosition: 'center center',
             backgroundSize: `${uniformTile}px ${uniformTile}px`,
-            top: '-10%',
-            bottom: '-10%',
           }}
-          className="absolute inset-x-0 will-change-transform"
+          className="absolute inset-0"
         />
       </div>
     );
@@ -174,7 +146,6 @@ export function BrandPattern({
 
   return (
     <div
-      ref={containerRef}
       className={`absolute inset-0 overflow-hidden pointer-events-none select-none ${className}`}
       style={wrapperMaskStyle}
       aria-hidden="true"
@@ -183,18 +154,12 @@ export function BrandPattern({
         <motion.div
           initial={
             reveal && !shouldReduceMotion
-              ? { opacity: 0, scale: scale * 0.96 }
+              ? { opacity: 0, scale: scale * 0.98 }
               : { opacity: resolvedOpacity, scale }
           }
           whileInView={{ opacity: resolvedOpacity, scale }}
-          viewport={{ once: true, amount: 'some' }}
-          transition={{ duration: 0.95, ease: [0.16, 1, 0.3, 1] }}
-          style={{
-            y:
-              !shouldReduceMotion && parallaxDistance !== 0
-                ? yOffset
-                : undefined,
-          }}
+          viewport={{ once: true, amount: 0.05 }}
+          transition={{ duration: 0.7, ease: EASE_SMOOTH }}
           className="will-change-transform"
         >
           <img
@@ -202,7 +167,7 @@ export function BrandPattern({
             alt=""
             loading="lazy"
             draggable={false}
-            className="w-[340px] sm:w-[440px] lg:w-[540px] aspect-square object-contain max-w-none"
+            className="w-[300px] sm:w-[380px] lg:w-[460px] aspect-square object-contain max-w-none"
           />
         </motion.div>
       </div>
@@ -217,15 +182,11 @@ interface BrandPatternBandProps {
   tileSize?: number;
 }
 
-/**
- * Clean cropped transition strip between page sections displaying the official
- * 4EVER pattern grid horizontally without borders cluttering text.
- */
 export function BrandPatternBand({
   variant = 'multicolor',
   opacity,
-  surface = 'white',
-  tileSize = 220,
+  surface = 'emerald',
+  tileSize = 200,
 }: BrandPatternBandProps) {
   const surfaceClass =
     surface === 'emerald'
@@ -237,14 +198,14 @@ export function BrandPatternBand({
   const resolvedOpacity =
     opacity ??
     (variant === 'multicolor'
-      ? 0.22
+      ? 0.045
       : surface === 'emerald'
-        ? 0.06
-        : 0.05);
+        ? 0.035
+        : 0.03);
 
   return (
     <div
-      className={`relative h-12 sm:h-16 overflow-hidden border-y border-[#073D37]/10 ${surfaceClass}`}
+      className={`relative h-10 sm:h-14 overflow-hidden border-y border-[#E4DDD2]/10 ${surfaceClass}`}
       aria-hidden="true"
     >
       <BrandPattern

@@ -1535,7 +1535,7 @@ export function AdminPage({ onPublicDataChanged }: AdminPageProps) {
             <div className="pt-4 border-t border-[#073D37]/10 space-y-3">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <h3 className="font-display font-bold text-base text-[#073D37]">
-                  Photographies des 12 services
+                  Photographies des 11 services
                 </h3>
                 <span className="text-[11px] text-[#073D37]/65">
                   Indique si un visuel officiel a remplacé l&apos;illustration temporaire.

@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 @theme {
+  --font-craft: "BioRhyme", "Roboto Slab", Georgia, serif;
   --font-display: "Montserrat", sans-serif;
   --font-sans: "Poppins", sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
@@ -26,7 +27,11 @@
     font-family: var(--font-sans);
   }
 
-  h1, h2, h3, h4, nav, button, .font-display {
+  h1, h2 {
+    font-family: var(--font-craft);
+  }
+
+  h3, h4, nav, button, .font-display {
     font-family: var(--font-display);
   }
 
@@ -35,51 +40,83 @@
   }
 }
 
-/* Official Fluid Editorial Typography Scale (Montserrat + Poppins) */
-.type-hero {
-  font-family: var(--font-display);
-  font-size: clamp(2.375rem, 1.8rem + 3.4vw, 5.125rem); /* 38px mobile -> 82px desktop */
-  line-height: 1.04;
-  letter-spacing: -0.028em;
-  font-weight: 800;
-}
+/* Official Moderate Editorial Typography Scale (Craft Matters BioRhyme + Montserrat + Poppins) */
 
-.type-h2 {
-  font-family: var(--font-display);
-  font-size: clamp(1.875rem, 1.35rem + 2.5vw, 3.75rem); /* 30px mobile -> 60px desktop */
+/* H1 — Titre principal de page : clamp(44px, 5.5vw, 80px) sur tablette/desktop */
+.type-hero,
+.type-xxl {
+  font-family: var(--font-craft);
+  font-weight: 800;
+  font-size: clamp(2rem, 8.2vw, 2.75rem); /* 32px -> 44px mobile */
   line-height: 1.08;
-  letter-spacing: -0.024em;
-  font-weight: 800;
+  letter-spacing: -0.02em;
+  overflow-wrap: break-word;
 }
 
+@media (min-width: 640px) {
+  .type-hero,
+  .type-xxl {
+    font-size: clamp(2.75rem, 5.5vw, 5rem); /* clamp(44px, 5.5vw, 80px) */
+    line-height: 1.04;
+    letter-spacing: -0.022em;
+  }
+}
+
+/* H2 — Titre principal de section : clamp(32px, 4vw, 56px) sur tablette/desktop */
+.type-h2 {
+  font-family: var(--font-craft);
+  font-weight: 800;
+  font-size: clamp(1.625rem, 6.2vw, 2.125rem); /* 26px -> 34px mobile */
+  line-height: 1.12;
+  letter-spacing: -0.018em;
+  overflow-wrap: break-word;
+}
+
+@media (min-width: 640px) {
+  .type-h2 {
+    font-size: clamp(2rem, 4vw, 3.5rem); /* clamp(32px, 4vw, 56px) */
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+  }
+}
+
+/* H3 — Sous-titre : clamp(22px, 2.5vw, 32px) */
 .type-h3 {
   font-family: var(--font-display);
-  font-size: clamp(1.25rem, 1.1rem + 0.75vw, 1.875rem); /* 20px mobile -> 30px desktop */
-  line-height: 1.22;
-  letter-spacing: -0.015em;
   font-weight: 700;
+  font-size: clamp(1.25rem, 4.4vw, 1.5rem); /* 20px -> 24px mobile */
+  line-height: 1.24;
+  letter-spacing: -0.012em;
+}
+
+@media (min-width: 640px) {
+  .type-h3 {
+    font-size: clamp(1.375rem, 2.5vw, 2rem); /* clamp(22px, 2.5vw, 32px) */
+    line-height: 1.22;
+  }
 }
 
 .type-intro {
   font-family: var(--font-sans);
-  font-size: clamp(1rem, 0.94rem + 0.3vw, 1.25rem); /* 16px mobile -> 20px desktop */
+  font-size: clamp(1rem, 0.94rem + 0.3vw, 1.1875rem); /* 16px -> 19px */
   line-height: 1.65;
   font-weight: 400;
 }
 
 .type-body {
   font-family: var(--font-sans);
-  font-size: clamp(0.9375rem, 0.91rem + 0.14vw, 1.0625rem); /* 15px mobile -> 17px desktop */
+  font-size: clamp(0.9375rem, 0.91rem + 0.14vw, 1.0625rem); /* 15px -> 17px */
   line-height: 1.7;
   font-weight: 400;
 }
 
+/* Surtitre discret (11-13px Montserrat SemiBold) */
 .type-kicker {
   font-family: var(--font-display);
   font-size: clamp(0.6875rem, 0.66rem + 0.12vw, 0.8125rem); /* 11px -> 13px */
-  letter-spacing: 0.2em;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 @keyframes floatSlow {

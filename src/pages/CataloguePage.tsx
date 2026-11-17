@@ -14,11 +14,11 @@ import {
   type BootstrapData,
   type ProductItem,
 } from '../types.ts';
-import { STUDIO_VISUALS } from '../data/visuals.ts';
+import { POLE_ILLUSTRATIONS } from '../data/visuals.ts';
 import { ImageWithFallback } from '../components/ImageWithFallback.tsx';
 import { StudioBackdrop } from '../components/StudioBackdrop.tsx';
-import { useQuoteSelection } from '../context/QuoteSelectionContext.tsx';
 import { Reveal, SplitTextReveal } from '../components/MotionPrimitives.tsx';
+import { useQuoteSelection } from '../context/QuoteSelectionContext.tsx';
 
 interface CataloguePageProps {
   data: BootstrapData;
@@ -64,7 +64,6 @@ export function CataloguePage({ data, onOpenPdf }: CataloguePageProps) {
     if (!activePole) {
       return ['Tous les articles', ...base];
     }
-    // Keep categories aligned with active pole while preserving cross-category accessibility
     const poleCategories = base.filter((name) =>
       activePole.catalogueCategories.includes(name),
     );
@@ -146,14 +145,14 @@ export function CataloguePage({ data, onOpenPdf }: CataloguePageProps) {
   };
 
   return (
-    <div className="bg-[#FAF8F5] min-h-[75vh] text-[#1A1A1A]">
+    <div className="bg-[#052E29] min-h-[75vh] text-[#E4DDD2]">
       {/* Header Banner */}
-      <section className="relative overflow-hidden bg-[#073D37] text-white border-b border-white/10">
+      <section className="relative overflow-hidden bg-[#073D37] text-white border-b border-[#E4DDD2]/12">
         <StudioBackdrop variant="emerald" showPattern />
 
-        <div className="relative z-10 max-w-[1320px] mx-auto px-5 sm:px-8 lg:px-10 py-16 lg:py-24">
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
-            <div className="max-w-3xl space-y-4 min-w-0">
+        <div className="relative z-10 max-w-[1320px] mx-auto px-5 sm:px-8 lg:px-10 py-14 sm:py-20">
+          <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1.15fr)_auto] gap-8 lg:gap-12 items-end">
+            <div className="space-y-4 min-w-0">
               <Reveal>
                 <p className="type-kicker text-[#ED6F2C]">
                   Catalogue interactif 2027
@@ -162,10 +161,10 @@ export function CataloguePage({ data, onOpenPdf }: CataloguePageProps) {
               <SplitTextReveal
                 as="h1"
                 immediate
-                text="Articles & supports personnalisables"
-                className="type-hero text-white"
+                text={"Articles & supports\npersonnalisables."}
+                className="type-hero text-[#E4DDD2] max-w-[16ch]"
               />
-              <Reveal delay={0.12}>
+              <Reveal delay={0.1}>
                 <p className="type-intro text-[#E4DDD2]/85 max-w-2xl">
                   Filtrez par pôle de production ou par catégorie, recherchez par nom ou référence, ajoutez vos articles à votre sélection et envoyez une demande de devis globale sans engagement.
                 </p>
@@ -176,7 +175,7 @@ export function CataloguePage({ data, onOpenPdf }: CataloguePageProps) {
               <button
                 type="button"
                 onClick={onOpenPdf}
-                className="font-display inline-flex items-center gap-2 px-6 py-3.5 rounded-lg bg-[#ED6F2C] text-white text-sm font-semibold hover:bg-[#d85f1f] shadow-sm transition-colors cursor-pointer whitespace-nowrap"
+                className="font-display inline-flex items-center gap-2 px-6 py-3.5 rounded-lg bg-[#ED6F2C] text-white text-sm font-semibold hover:bg-[#d85f1f] shadow-sm transition-colors duration-200 cursor-pointer whitespace-nowrap"
               >
                 <BookOpen className="w-4 h-4" />
                 <span>Consulter le catalogue complet 2027</span>
@@ -186,12 +185,12 @@ export function CataloguePage({ data, onOpenPdf }: CataloguePageProps) {
         </div>
       </section>
 
-      {/* Filter & Search Toolbar */}
-      <section className="bg-white border-b border-[#073D37]/10">
+      {/* Filter & Search Toolbar — Tonal Deep Emerald */}
+      <section className="bg-[#063631] border-b border-[#E4DDD2]/12">
         <div className="max-w-[1320px] mx-auto px-5 sm:px-8 lg:px-10 py-6 space-y-5">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div className="relative flex-1 max-w-md">
-              <Search className="w-4 h-4 text-[#073D37]/50 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+              <Search className="w-4 h-4 text-[#E4DDD2]/55 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
               <input
                 type="search"
                 value={searchQuery}
@@ -200,12 +199,12 @@ export function CataloguePage({ data, onOpenPdf }: CataloguePageProps) {
                   setVisibleCount(PAGE_SIZE);
                 }}
                 placeholder="Rechercher par nom ou référence..."
-                className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-[#073D37]/20 bg-[#FAF8F5] text-sm text-[#1A1A1A] placeholder:text-[#1A1A1A]/45 focus:outline-none focus:border-[#073D37]"
+                className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-[#E4DDD2]/20 bg-[#042521] text-sm text-white placeholder:text-[#E4DDD2]/45 focus:outline-none focus:border-[#ED6F2C]"
                 aria-label="Rechercher un article par nom ou référence"
               />
             </div>
 
-            <p className="text-xs font-semibold text-[#1A1A1A]/70 tabular-nums">
+            <p className="text-xs font-semibold text-[#E4DDD2]/78 tabular-nums">
               {filteredProducts.length} article{filteredProducts.length > 1 ? 's' : ''} affiché
               {filteredProducts.length > 1 ? 's' : ''} · Prix sur devis
             </p>
@@ -213,7 +212,7 @@ export function CataloguePage({ data, onOpenPdf }: CataloguePageProps) {
 
           {/* Filter by Production Pole */}
           <div className="space-y-2">
-            <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-[#073D37]/70">
+            <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-[#E4DDD2]/75">
               <Layers className="w-3.5 h-3.5 text-[#ED6F2C]" />
               <span>Filtrer par pôle de production</span>
             </div>
@@ -223,10 +222,10 @@ export function CataloguePage({ data, onOpenPdf }: CataloguePageProps) {
                 role="tab"
                 aria-selected={selectedPoleId === 'tous'}
                 onClick={() => handlePoleChange('tous')}
-                className={`px-3.5 py-2 rounded-lg text-xs font-semibold transition-all duration-150 cursor-pointer whitespace-nowrap ${
+                className={`px-3.5 py-2 rounded-lg text-xs font-semibold transition-colors duration-200 cursor-pointer whitespace-nowrap ${
                   selectedPoleId === 'tous'
-                    ? 'bg-[#ED6F2C] text-white shadow-xs'
-                    : 'bg-[#FAF8F5] text-[#1A1A1A]/80 border border-[#073D37]/12 hover:border-[#ED6F2C]/50'
+                    ? 'bg-[#ED6F2C] text-white'
+                    : 'bg-[#042521] text-[#E4DDD2]/82 border border-[#E4DDD2]/15 hover:border-[#ED6F2C]/60'
                 }`}
               >
                 Tous les pôles
@@ -240,10 +239,10 @@ export function CataloguePage({ data, onOpenPdf }: CataloguePageProps) {
                     role="tab"
                     aria-selected={active}
                     onClick={() => handlePoleChange(pole.id)}
-                    className={`px-3.5 py-2 rounded-lg text-xs font-semibold transition-all duration-150 cursor-pointer whitespace-nowrap ${
+                    className={`px-3.5 py-2 rounded-lg text-xs font-semibold transition-colors duration-200 cursor-pointer whitespace-nowrap ${
                       active
-                        ? 'bg-[#ED6F2C] text-white shadow-xs'
-                        : 'bg-[#FAF8F5] text-[#1A1A1A]/80 border border-[#073D37]/12 hover:border-[#ED6F2C]/50'
+                        ? 'bg-[#ED6F2C] text-white'
+                        : 'bg-[#042521] text-[#E4DDD2]/82 border border-[#E4DDD2]/15 hover:border-[#ED6F2C]/60'
                     }`}
                   >
                     <span className="font-display tabular-nums mr-1.5 opacity-85">{pole.number}</span>
@@ -255,7 +254,7 @@ export function CataloguePage({ data, onOpenPdf }: CataloguePageProps) {
           </div>
 
           {/* Filter by Category */}
-          <div className="flex flex-wrap gap-2 pt-2 border-t border-[#073D37]/10" role="tablist" aria-label="Catégories du catalogue">
+          <div className="flex flex-wrap gap-2 pt-2 border-t border-[#E4DDD2]/12" role="tablist" aria-label="Catégories du catalogue">
             {categoryNames.map((cat) => {
               const active = selectedCategory === cat;
               return (
@@ -265,10 +264,10 @@ export function CataloguePage({ data, onOpenPdf }: CataloguePageProps) {
                   role="tab"
                   aria-selected={active}
                   onClick={() => handleCategoryChange(cat)}
-                  className={`px-3.5 py-2 rounded-lg text-xs font-semibold transition-all duration-150 cursor-pointer whitespace-nowrap ${
+                  className={`px-3.5 py-2 rounded-lg text-xs font-semibold transition-colors duration-200 cursor-pointer whitespace-nowrap ${
                     active
-                      ? 'bg-[#073D37] text-white shadow-xs'
-                      : 'bg-[#FAF8F5] text-[#1A1A1A]/80 border border-[#073D37]/12 hover:border-[#073D37]/35'
+                      ? 'bg-[#E4DDD2] text-[#073D37]'
+                      : 'bg-[#042521] text-[#E4DDD2]/80 border border-[#E4DDD2]/14 hover:border-[#E4DDD2]/40'
                   }`}
                 >
                   {cat}
@@ -278,17 +277,17 @@ export function CataloguePage({ data, onOpenPdf }: CataloguePageProps) {
           </div>
 
           {availableSubcategories.length > 0 && (
-            <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-[#073D37]/10">
-              <span className="text-xs font-semibold text-[#073D37]/70 mr-1">
+            <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-[#E4DDD2]/12">
+              <span className="text-xs font-semibold text-[#E4DDD2]/75 mr-1">
                 Sous-catégorie :
               </span>
               <button
                 type="button"
                 onClick={() => setSelectedSubcategory('Toutes')}
-                className={`px-2.5 py-1 rounded-md text-xs font-medium transition-colors cursor-pointer ${
+                className={`px-2.5 py-1 rounded-md text-xs font-medium transition-colors duration-200 cursor-pointer ${
                   selectedSubcategory === 'Toutes'
                     ? 'bg-[#ED6F2C] text-white'
-                    : 'bg-[#E4DDD2]/50 text-[#073D37] hover:bg-[#E4DDD2]'
+                    : 'bg-[#042521] text-[#E4DDD2]/80 hover:bg-[#073D37]'
                 }`}
               >
                 Toutes
@@ -298,10 +297,10 @@ export function CataloguePage({ data, onOpenPdf }: CataloguePageProps) {
                   key={sub}
                   type="button"
                   onClick={() => setSelectedSubcategory(sub)}
-                  className={`px-2.5 py-1 rounded-md text-xs font-medium transition-colors cursor-pointer ${
+                  className={`px-2.5 py-1 rounded-md text-xs font-medium transition-colors duration-200 cursor-pointer ${
                     selectedSubcategory === sub
                       ? 'bg-[#ED6F2C] text-white'
-                      : 'bg-[#E4DDD2]/50 text-[#073D37] hover:bg-[#E4DDD2]'
+                      : 'bg-[#042521] text-[#E4DDD2]/80 hover:bg-[#073D37]'
                   }`}
                 >
                   {sub}
@@ -320,53 +319,54 @@ export function CataloguePage({ data, onOpenPdf }: CataloguePageProps) {
               {paginatedProducts.map((product) => (
                 <article
                   key={product.id}
-                  className="group bg-white rounded-xl border border-[#073D37]/12 overflow-hidden flex flex-col hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(7,61,55,0.08)] hover:border-[#073D37]/30 transition-all duration-200"
+                  className="group bg-[#073D37] rounded-xl border border-[#E4DDD2]/15 overflow-hidden flex flex-col hover:-translate-y-1 hover:border-[#ED6F2C]/45 transition-all duration-200"
                 >
                   <Link to={`/catalogue/${product.id}`} className="block overflow-hidden">
                     <ImageWithFallback
                       src={product.imageUrl}
-                      fallbackSrc={
+                      editorialVariant={
                         activePole
-                          ? STUDIO_VISUALS[activePole.visualKey]
-                          : STUDIO_VISUALS.poleGoodiesCoffrets
+                          ? POLE_ILLUSTRATIONS[activePole.adminImageKey]
+                          : 'pole-goodies-objets-personnalises'
                       }
+                      tone="dark"
                       alt={product.name}
-                      imgClassName="transition-transform duration-500 group-hover:scale-105"
+                      imgClassName="transition-transform duration-300 group-hover:scale-[1.03]"
                     />
                   </Link>
 
                   <div className="p-4 flex-1 flex flex-col justify-between">
                     <div>
-                      <div className="flex items-center justify-between gap-2 text-xs text-[#1A1A1A]/65">
-                        <span className="font-display tabular-nums font-semibold text-[#073D37]">
+                      <div className="flex items-center justify-between gap-2 text-xs text-[#E4DDD2]/65">
+                        <span className="font-display tabular-nums font-semibold text-[#ED6F2C]">
                           {product.code}
                         </span>
                         <span className="truncate">{product.category}</span>
                       </div>
 
                       <Link to={`/catalogue/${product.id}`}>
-                        <h2 className="font-display font-bold text-base text-[#073D37] mt-1.5 group-hover:text-[#ED6F2C] transition-colors">
+                        <h2 className="font-display font-bold text-base text-white mt-1.5 group-hover:text-[#ED6F2C] transition-colors duration-200">
                           {product.name}
                         </h2>
                       </Link>
 
                       {product.description && (
-                        <p className="text-xs text-[#1A1A1A]/75 mt-2 line-clamp-2 leading-relaxed">
+                        <p className="text-xs text-[#E4DDD2]/78 mt-2 line-clamp-2 leading-relaxed">
                           {product.description}
                         </p>
                       )}
 
                       {product.needsVerification && (
-                        <p className="mt-2 inline-flex items-center gap-1 text-[11px] font-medium text-amber-800">
+                        <p className="mt-2 inline-flex items-center gap-1 text-[11px] font-medium text-amber-300">
                           <AlertTriangle className="w-3.5 h-3.5 shrink-0" />
                           <span>Élément signalé à vérifier</span>
                         </p>
                       )}
                     </div>
 
-                    <div className="mt-4 pt-3 border-t border-[#073D37]/10 space-y-2.5">
+                    <div className="mt-4 pt-3 border-t border-[#E4DDD2]/12 space-y-2.5">
                       <div className="flex items-center justify-between text-xs">
-                        <span className="font-semibold text-[#073D37]">
+                        <span className="font-semibold text-[#E4DDD2]">
                           {product.priceLabel || 'Prix sur devis'}
                         </span>
                         <Link
@@ -380,11 +380,11 @@ export function CataloguePage({ data, onOpenPdf }: CataloguePageProps) {
                       <button
                         type="button"
                         onClick={() => handleAdd(product)}
-                        className="w-full inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-[#073D37] text-white text-xs font-semibold hover:bg-[#042824] transition-colors cursor-pointer"
+                        className="w-full inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-[#ED6F2C] text-white text-xs font-semibold hover:bg-[#d85f1f] transition-colors duration-200 cursor-pointer"
                       >
                         {addedId === product.id ? (
                           <>
-                            <CheckCircle2 className="w-4 h-4 text-[#ED6F2C]" />
+                            <CheckCircle2 className="w-4 h-4 text-white" />
                             <span>Ajouté à ma demande</span>
                           </>
                         ) : (
@@ -405,7 +405,7 @@ export function CataloguePage({ data, onOpenPdf }: CataloguePageProps) {
                 <button
                   type="button"
                   onClick={() => setVisibleCount((prev) => prev + PAGE_SIZE)}
-                  className="px-6 py-3 rounded-lg border border-[#073D37]/25 bg-white text-sm font-semibold text-[#073D37] hover:bg-[#E4DDD2]/40 transition-colors cursor-pointer"
+                  className="px-6 py-3 rounded-lg border border-[#E4DDD2]/25 bg-[#073D37] text-sm font-semibold text-white hover:bg-[#ED6F2C] hover:border-[#ED6F2C] transition-colors duration-200 cursor-pointer"
                 >
                   Afficher plus d&apos;articles
                 </button>
@@ -413,18 +413,18 @@ export function CataloguePage({ data, onOpenPdf }: CataloguePageProps) {
             )}
           </>
         ) : (
-          <div className="bg-white rounded-2xl border border-[#073D37]/12 p-10 text-center max-w-2xl mx-auto">
-            <div className="w-12 h-12 rounded-lg bg-[#E4DDD2]/70 flex items-center justify-center text-[#073D37] mx-auto mb-4">
+          <div className="bg-[#073D37] rounded-2xl border border-[#E4DDD2]/15 p-10 text-center max-w-2xl mx-auto">
+            <div className="w-12 h-12 rounded-lg bg-[#042521] border border-[#E4DDD2]/15 flex items-center justify-center text-[#ED6F2C] mx-auto mb-4">
               <FileText className="w-6 h-6" />
             </div>
-            <h2 className="font-display font-bold text-xl text-[#073D37]">
+            <h2 className="font-display font-bold text-xl text-white">
               {searchQuery
                 ? 'Aucun article ne correspond à votre recherche'
                 : activePole
                   ? `Aucun article publié dans le Pôle ${activePole.number} — ${activePole.title} pour le moment`
                   : `Aucun article publié dans « ${selectedCategory} » pour le moment`}
             </h2>
-            <p className="text-sm text-[#1A1A1A]/75 mt-2 leading-relaxed">
+            <p className="text-sm text-[#E4DDD2]/80 mt-2 leading-relaxed">
               {searchQuery
                 ? 'Essayez un autre mot-clé, vérifiez le code référence ou réinitialisez les filtres.'
                 : 'Les articles officiels du Catalogue 2027 publiés depuis l’administration apparaîtront ici. Vous pouvez consulter le PDF complet ou nous adresser directement votre besoin sur mesure.'}
@@ -434,7 +434,7 @@ export function CataloguePage({ data, onOpenPdf }: CataloguePageProps) {
                 <button
                   type="button"
                   onClick={resetAllFilters}
-                  className="px-4 py-2.5 rounded-lg border border-[#073D37]/20 text-sm font-medium text-[#073D37] hover:bg-[#FAF8F5] cursor-pointer"
+                  className="px-4 py-2.5 rounded-lg border border-[#E4DDD2]/25 text-sm font-medium text-[#E4DDD2] hover:bg-white/10 cursor-pointer"
                 >
                   Réinitialiser les filtres
                 </button>
@@ -442,7 +442,7 @@ export function CataloguePage({ data, onOpenPdf }: CataloguePageProps) {
               <button
                 type="button"
                 onClick={onOpenPdf}
-                className="px-4 py-2.5 rounded-lg bg-[#073D37] text-white text-sm font-semibold hover:bg-[#042824] cursor-pointer"
+                className="px-4 py-2.5 rounded-lg bg-[#042521] border border-[#E4DDD2]/20 text-white text-sm font-semibold hover:bg-[#063631] cursor-pointer"
               >
                 Consulter le catalogue complet 2027
               </button>

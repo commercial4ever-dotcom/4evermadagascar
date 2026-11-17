@@ -435,20 +435,6 @@ export const FEATURED_SERVICE_POLES: FeaturedServicePole[] = [
     visualKey: 'serviceWeddingEvent',
     targetHash: 'creations-evenementielles',
   },
-  {
-    id: 'studio-creatif',
-    number: '07',
-    title: 'Studio créatif',
-    summary:
-      'Production photographique, captation vidéo, packshots produits et mise en scène visuelle pour vos campagnes.',
-    applications: [
-      'Packshots catalogues & e-commerce',
-      'Capsules vidéo & présentations de marque',
-      'Mockups réalistes & direction photo',
-    ],
-    visualKey: 'serviceStudioCreatif',
-    targetHash: 'photographie-video',
-  },
 ];
 
 export const SERVICES_LIST: ServiceDefinition[] = [
@@ -553,18 +539,8 @@ export const SERVICES_LIST: ServiceDefinition[] = [
     examples: ['Coffrets cadeaux de fin d’année', 'Boîtes produits sur mesure', 'Kits de bienvenue collaborateurs'],
   },
   {
-    id: 'photographie-video',
-    number: '11',
-    title: 'Photographie et vidéo',
-    shortSummary: 'Production d’images fixes et animées pour valoriser vos créations et marques.',
-    description:
-      'Notre pôle image réalise des shootings produits, des portraits d’équipe et des capsules vidéo pensées pour vos supports digitaux, catalogues et présentations.',
-    materialsAndTechniques: ['Studio photo produits', 'Reportage en entreprise', 'Éclairage maîtrisé', 'Montage et étalonnage'],
-    examples: ['Packshots pour catalogues', 'Couverture visuelle d’événements', 'Vidéos de présentation produit'],
-  },
-  {
     id: 'creations-evenementielles',
-    number: '12',
+    number: '11',
     title: 'Créations événementielles',
     shortSummary: 'Supports, décors et objets personnalisés pour vos temps forts.',
     description:

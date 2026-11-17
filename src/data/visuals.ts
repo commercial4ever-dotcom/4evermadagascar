@@ -6,11 +6,12 @@ import illusPolePapeterie from '../assets/images/illus_pole_papeterie_1794900303
 import illusStudioCraft from '../assets/images/illus_studio_craft_1794900303490.jpg';
 import illusSignaletiquePlv from '../assets/images/illus_signaletique_plv_1794900322111.jpg';
 import illusWeddingEvent from '../assets/images/illus_wedding_event_1794900322935.jpg';
+import type { EditorialIllustrationVariant } from '../components/EditorialIllustrations.tsx';
 
 /**
- * Contemporary editorial drawn illustrations for 4EVER Madagascar.
- * Automatically acts as default visual layer until replaced by official
- * photography uploaded through /admin.
+ * Legacy raster visual references retained on disk for backwards compatibility.
+ * Public editorial visuals render monochrome black & white line-art via
+ * EditorialIllustration until replaced by real uploaded photography in /admin.
  */
 export const STUDIO_VISUALS = {
   heroStudioCraft: illusHeroAtelier,
@@ -45,6 +46,47 @@ export const SERVICE_DEFAULT_IMAGES: Record<string, string> = {
   'couture-textile': illusPoleTextiles,
   'enseignes-signaletique': illusSignaletiquePlv,
   'packaging-coffrets': illusPolePapeterie,
-  'photographie-video': illusStudioCraft,
   'creations-evenementielles': illusWeddingEvent,
+};
+
+/**
+ * Monochrome B&W editorial line-art variant mapping for poles, studio stories, and all 11 techniques.
+ */
+export const VISUAL_KEY_TO_ILLUSTRATION: Record<
+  keyof typeof STUDIO_VISUALS,
+  EditorialIllustrationVariant
+> = {
+  heroStudioCraft: 'hero-atelier',
+  serviceDesignPao: 'design-graphique-pao',
+  serviceCadeauxEntreprise: 'pole-goodies-objets-personnalises',
+  serviceTextileMarquage: 'impression-dtf-textile',
+  serviceLaserGravure: 'decoupe-gravure-laser',
+  serviceSignaletiquePlv: 'signaletique-plv',
+  serviceWeddingEvent: 'wedding-event',
+  serviceStudioCreatif: 'studio-craft',
+  poleMatieresRigides: 'pole-matieres-rigides',
+  poleTextilesSouples: 'pole-textiles-matieres-souples',
+  poleGoodiesCoffrets: 'pole-goodies-objets-personnalises',
+  polePapeterieImpression: 'pole-papeterie-impression',
+};
+
+export const POLE_ILLUSTRATIONS: Record<string, EditorialIllustrationVariant> = {
+  'pole-matieres-rigides': 'pole-matieres-rigides',
+  'pole-textiles-matieres-souples': 'pole-textiles-matieres-souples',
+  'pole-goodies-objets-personnalises': 'pole-goodies-objets-personnalises',
+  'pole-papeterie-impression': 'pole-papeterie-impression',
+};
+
+export const SERVICE_ILLUSTRATIONS: Record<string, EditorialIllustrationVariant> = {
+  'design-graphique-pao': 'design-graphique-pao',
+  'decoupe-gravure-laser': 'decoupe-gravure-laser',
+  'usinage-cnc-bois': 'usinage-cnc-bois',
+  'impression-uv-dtf': 'impression-uv-dtf',
+  'impression-dtf-textile': 'impression-dtf-textile',
+  sublimation: 'sublimation',
+  'impression-sur-bois': 'impression-sur-bois',
+  'couture-textile': 'couture-textile',
+  'enseignes-signaletique': 'enseignes-signaletique',
+  'packaging-coffrets': 'packaging-coffrets',
+  'creations-evenementielles': 'creations-evenementielles',
 };

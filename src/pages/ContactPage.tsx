@@ -92,20 +92,24 @@ export function ContactPage({ settings }: ContactPageProps) {
   };
 
   return (
-    <div className="bg-white">
-      <section className="relative overflow-hidden bg-[#073D37] text-white border-b border-white/10">
+    <div className="bg-[#052E29] text-[#1A1A1A]">
+      <section className="relative overflow-hidden bg-[#073D37] text-white border-b border-[#E4DDD2]/12">
         <StudioBackdrop variant="emerald" showPattern />
-        <div className="relative z-10 max-w-[1320px] mx-auto px-5 sm:px-8 lg:px-10 py-16 sm:py-24">
-          <div className="max-w-3xl space-y-4">
-            <p className="type-kicker text-[#ED6F2C]">
-              Contact &amp; Showroom
-            </p>
-            <h1 className="type-hero text-white">
-              4EVER Madagascar
-            </h1>
-            <p className="type-intro text-[#E4DDD2]/85 max-w-2xl">
-              Échangez directement avec notre équipe ou rendez-nous visite au showroom d&apos;Ampandrana à Antananarivo.
-            </p>
+        <div className="relative z-10 max-w-[1320px] mx-auto px-5 sm:px-8 lg:px-10 py-14 sm:py-20">
+          <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.95fr)] gap-8 lg:gap-16 items-end">
+            <div className="space-y-4 min-w-0">
+              <p className="type-kicker text-[#ED6F2C]">
+                Contact &amp; Showroom
+              </p>
+              <h1 className="type-hero text-[#E4DDD2] max-w-[14ch]">
+                4EVER Madagascar.
+              </h1>
+            </div>
+            <div className="min-w-0">
+              <p className="type-intro text-[#E4DDD2]/85">
+                Échangez directement avec notre équipe ou rendez-nous visite au showroom d&apos;Ampandrana à Antananarivo.
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -338,7 +342,8 @@ export function ContactPage({ settings }: ContactPageProps) {
 
         {/* Google Maps Showroom Section */}
         <div className="space-y-4">
-          <h2 className="font-display font-bold text-2xl text-[#073D37]">
+          <p className="type-kicker text-[#ED6F2C]">Showroom Ampandrana</p>
+          <h2 className="type-h2 text-[#E4DDD2]">
             Localisation du Showroom 4EVER
           </h2>
           <ShowroomMap />

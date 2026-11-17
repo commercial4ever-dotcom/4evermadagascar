@@ -41,24 +41,24 @@ export function Layout({ children, settings }: LayoutProps) {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-white text-[#1A1A1A]">
-      {/* Sticky Single-Row Top Bar */}
+    <div className="min-h-screen flex flex-col bg-[#073D37] text-[#E4DDD2]">
+      {/* Sticky Single-Row Emerald Top Bar */}
       <header
-        className={`sticky top-0 z-40 transition-all duration-200 ${
+        className={`sticky top-0 z-40 transition-colors duration-200 ${
           scrolled
-            ? 'bg-white/95 backdrop-blur-md border-b border-[#073D37]/12 shadow-[0_8px_30px_rgba(7,61,55,0.06)]'
-            : 'bg-white/95 backdrop-blur-sm border-b border-[#073D37]/8'
+            ? 'bg-[#052E29]/95 backdrop-blur-md border-b border-[#E4DDD2]/15 shadow-[0_8px_30px_rgba(4,28,25,0.28)]'
+            : 'bg-[#073D37]/95 backdrop-blur-sm border-b border-[#E4DDD2]/10'
         }`}
       >
         <div className="max-w-[1320px] mx-auto px-5 sm:px-8 lg:px-10 h-16 md:h-[78px] flex items-center justify-between gap-3 lg:gap-6">
-          {/* Brand Logo */}
+          {/* Official Brand Logo */}
           <Link
             to="/"
             className="shrink-0 flex items-center focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#ED6F2C] rounded"
             aria-label="4EVER Madagascar — Accueil"
           >
             <img
-              src="/assets/aistudio/Logo-vert-2_472352d2.png"
+              src="/assets/aistudio/Logo-beige-2_6856e0b4.png"
               alt="4EVER modern handcraft"
               className="h-8 md:h-9 w-auto object-contain"
             />
@@ -72,10 +72,10 @@ export function Layout({ children, settings }: LayoutProps) {
                 to={item.to}
                 end={item.to === '/'}
                 className={({ isActive }) =>
-                  `relative text-[13px] tracking-[0.02em] whitespace-nowrap shrink-0 py-1.5 transition-colors duration-150 ${
+                  `relative text-[13px] tracking-[0.02em] whitespace-nowrap shrink-0 py-1.5 transition-colors duration-200 ${
                     isActive
-                      ? 'text-[#073D37] font-bold'
-                      : 'text-[#1A1A1A]/75 font-medium hover:text-[#073D37]'
+                      ? 'text-white font-bold'
+                      : 'text-[#E4DDD2]/80 font-medium hover:text-white'
                   }`
                 }
               >
@@ -101,10 +101,10 @@ export function Layout({ children, settings }: LayoutProps) {
                 to={item.to}
                 end={item.to === '/'}
                 className={({ isActive }) =>
-                  `relative text-xs tracking-wide whitespace-nowrap shrink-0 py-1.5 transition-colors duration-150 ${
+                  `relative text-xs tracking-wide whitespace-nowrap shrink-0 py-1.5 transition-colors duration-200 ${
                     isActive
-                      ? 'text-[#073D37] font-bold'
-                      : 'text-[#1A1A1A]/75 font-medium hover:text-[#073D37]'
+                      ? 'text-white font-bold'
+                      : 'text-[#E4DDD2]/80 font-medium hover:text-white'
                   }`
                 }
               >
@@ -127,7 +127,7 @@ export function Layout({ children, settings }: LayoutProps) {
             <button
               type="button"
               onClick={openDrawer}
-              className="font-display inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-[#073D37]/15 text-[#073D37] hover:bg-[#E4DDD2]/45 transition-all duration-150 text-xs sm:text-[13px] font-semibold whitespace-nowrap shrink-0 min-h-[40px] cursor-pointer"
+              className="font-display inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-[#E4DDD2]/22 text-[#E4DDD2] hover:bg-white/10 transition-colors duration-200 text-xs sm:text-[13px] font-semibold whitespace-nowrap shrink-0 min-h-[40px] cursor-pointer"
               aria-label={`Ouvrir ma sélection de devis (${totalQuantity} articles)`}
             >
               <ClipboardList className="w-4 h-4 shrink-0" />
@@ -139,7 +139,7 @@ export function Layout({ children, settings }: LayoutProps) {
 
             <Link
               to="/devis"
-              className="font-display group hidden sm:inline-flex items-center gap-1.5 px-4 xl:px-5 py-2.5 rounded-lg bg-[#ED6F2C] text-white text-xs xl:text-[13px] font-semibold hover:bg-[#d85f1f] shadow-sm transition-all duration-200 whitespace-nowrap shrink-0 min-h-[40px]"
+              className="font-display group hidden sm:inline-flex items-center gap-1.5 px-4 xl:px-5 py-2.5 rounded-lg bg-[#ED6F2C] text-white text-xs xl:text-[13px] font-semibold hover:bg-[#d85f1f] shadow-sm transition-colors duration-200 whitespace-nowrap shrink-0 min-h-[40px]"
             >
               <span>Demander un devis</span>
               <ArrowUpRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -148,7 +148,7 @@ export function Layout({ children, settings }: LayoutProps) {
             <button
               type="button"
               onClick={() => setMobileMenuOpen((prev) => !prev)}
-              className="lg:hidden inline-flex items-center justify-center w-11 h-11 rounded-lg border border-[#073D37]/15 text-[#073D37] hover:bg-[#E4DDD2]/40 transition-colors cursor-pointer"
+              className="lg:hidden inline-flex items-center justify-center w-11 h-11 rounded-lg border border-[#E4DDD2]/20 text-[#E4DDD2] hover:bg-white/10 transition-colors cursor-pointer"
               aria-label={mobileMenuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
               aria-expanded={mobileMenuOpen}
             >
@@ -159,7 +159,7 @@ export function Layout({ children, settings }: LayoutProps) {
 
         {/* Mobile Menu Drawer */}
         {mobileMenuOpen && (
-          <div className="lg:hidden bg-white border-t border-[#073D37]/10 px-5 py-5 space-y-1.5">
+          <div className="lg:hidden bg-[#052E29] border-t border-[#E4DDD2]/12 px-5 py-5 space-y-1.5">
             {NAV_ITEMS.map((item) => (
               <NavLink
                 key={item.to}
@@ -169,8 +169,8 @@ export function Layout({ children, settings }: LayoutProps) {
                 className={({ isActive }) =>
                   `font-display block px-3.5 py-3 rounded-lg text-sm font-semibold transition-colors ${
                     isActive
-                      ? 'bg-[#073D37] text-white'
-                      : 'text-[#1A1A1A] hover:bg-[#E4DDD2]/45'
+                      ? 'bg-[#ED6F2C] text-white'
+                      : 'text-[#E4DDD2] hover:bg-white/10'
                   }`
                 }
               >
@@ -188,9 +188,9 @@ export function Layout({ children, settings }: LayoutProps) {
               </Link>
             </div>
 
-            <div className="pt-4 mt-3 border-t border-[#073D37]/10 flex items-center justify-between gap-4">
-              <span className="text-xs text-[#1A1A1A]/65">Suivez 4EVER</span>
-              <SocialLinks socialLinks={settings.socialLinks} tone="dark" size="sm" />
+            <div className="pt-4 mt-3 border-t border-[#E4DDD2]/12 flex items-center justify-between gap-4">
+              <span className="text-xs text-[#E4DDD2]/75">Suivez 4EVER</span>
+              <SocialLinks socialLinks={settings.socialLinks} tone="light" size="sm" />
             </div>
           </div>
         )}
@@ -200,18 +200,17 @@ export function Layout({ children, settings }: LayoutProps) {
       <main className="flex-1">{children}</main>
 
       {/* Editorial Deep Green Footer */}
-      <footer className="relative overflow-hidden bg-[#073D37] text-[#E4DDD2] border-t border-[#E4DDD2]/10">
+      <footer className="relative overflow-hidden bg-[#042521] text-[#E4DDD2] border-t border-[#E4DDD2]/12">
         <BrandPattern
           variant="monochrome-light"
-          opacity={0.035}
+          opacity={0.03}
           position="right-edge"
-          scale={1.15}
+          scale={1.05}
           mask="fade-left"
-          parallax={false}
         />
         <div className="relative z-10 max-w-[1320px] mx-auto px-5 sm:px-8 lg:px-10 py-16 lg:py-20">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-12">
-            {/* Brand Column */}
+            {/* Brand Column — Single Main Logo Only */}
             <div className="lg:col-span-4 space-y-5">
               <img
                 src="/assets/aistudio/Logo-beige-2_6856e0b4.png"
@@ -221,16 +220,9 @@ export function Layout({ children, settings }: LayoutProps) {
               <p className="text-sm text-[#E4DDD2]/85 leading-relaxed max-w-sm">
                 4EVER — Modern Handcraft. Atelier de création, personnalisation, impression et fabrication sur mesure à Antananarivo pour entreprises et particuliers.
               </p>
-              <div className="pt-1 flex items-center gap-4">
-                <img
-                  src="/assets/aistudio/Logo-secondaire1_30a71dac.png"
-                  alt="Sceau 4EVER modern handcraft"
-                  className="h-14 w-14 object-contain opacity-90"
-                />
-                <span className="font-display text-xs tracking-[0.18em] uppercase text-[#E4DDD2]/70 font-semibold">
-                  Antananarivo · Madagascar
-                </span>
-              </div>
+              <p className="font-display text-xs tracking-[0.18em] uppercase text-[#E4DDD2]/75 font-semibold pt-1">
+                Antananarivo · Madagascar
+              </p>
             </div>
 
             {/* Navigation Column */}
@@ -285,7 +277,7 @@ export function Layout({ children, settings }: LayoutProps) {
                 </li>
                 <li className="pt-2 border-t border-[#E4DDD2]/15">
                   <Link to="/services" className="font-display text-white font-semibold hover:text-[#ED6F2C] transition-colors">
-                    Voir nos 12 techniques →
+                    Voir nos 11 techniques →
                   </Link>
                 </li>
               </ul>

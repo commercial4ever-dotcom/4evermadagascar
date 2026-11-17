@@ -1,7 +1,7 @@
 export function LegalPage({ mode }: { mode: 'mentions' | 'privacy' }) {
   return (
-    <div className="bg-[#EFE9DF]/40 py-16 lg:py-24 px-5 sm:px-8 lg:px-10">
-      <div className="max-w-3xl mx-auto bg-white rounded-2xl border border-[#073D37]/12 p-8 sm:p-12 space-y-6 shadow-[0_20px_50px_-24px_rgba(7,61,55,0.08)]">
+    <div className="bg-[#052E29] py-16 lg:py-24 px-5 sm:px-8 lg:px-10">
+      <div className="max-w-3xl mx-auto bg-[#FBF9F5] rounded-2xl border border-[#E4DDD2]/60 p-8 sm:p-12 space-y-6 shadow-[0_24px_55px_-28px_rgba(0,0,0,0.45)]">
         {mode === 'mentions' ? (
           <>
             <h1 className="font-display font-bold text-3xl text-[#073D37] tracking-tight">Mentions légales</h1>
