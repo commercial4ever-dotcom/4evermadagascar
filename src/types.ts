@@ -1,8 +1,33 @@
+export type AdminRole = 'SUPER_ADMIN' | 'EDITOR' | 'SALES';
+
 export interface CategoryItem {
   id: string;
   name: string;
   slug: string;
   subcategories: string[];
+  poleId?: string;
+  sortOrder?: number;
+}
+
+export interface PoleConfigItem {
+  id: string;
+  number: string;
+  shortTitle: string;
+  title: string;
+  tagline: string;
+  description: string;
+  primarySectionLabel: 'Supports' | 'Activités';
+  primaryItems: string[];
+  secondarySectionLabel?: 'Savoir-faire';
+  secondaryItems?: string[];
+  applications: string[];
+  catalogueCategories: string[];
+  realisationCategories: string[];
+  serviceHashes: string[];
+  adminImageKey: string;
+  imageUrl: string;
+  sortOrder: number;
+  updatedAt: string;
 }
 
 export interface ProductItem {
@@ -15,7 +40,13 @@ export interface ProductItem {
   materials: string[];
   customizationOptions: string[];
   imageUrl: string;
+  mediaAssetId?: string;
   priceLabel: string;
+  priceAmount?: number | null;
+  currency?: string;
+  priceUnit?: string;
+  minOrderQty?: number | null;
+  showPrice?: boolean;
   published: boolean;
   featured: boolean;
   isDemo: boolean;
@@ -31,8 +62,38 @@ export interface RealisationItem {
   category: string;
   description: string;
   imageUrl: string;
+  mediaAssetId?: string;
+  sortOrder?: number;
   published: boolean;
   createdAt: string;
+  updatedAt?: string;
+}
+
+export type MediaFolder =
+  | 'products'
+  | 'realisations'
+  | 'editorial'
+  | 'illustrations'
+  | 'documents'
+  | 'catalogues';
+
+export type MediaKind = 'photo' | 'illustration' | 'pdf' | 'document';
+
+export interface MediaAssetItem {
+  id: string;
+  filename: string;
+  originalName: string;
+  r2Key: string;
+  publicUrl: string;
+  folder: MediaFolder;
+  kind: MediaKind;
+  mimeType: string;
+  sizeBytes: number;
+  altText: string;
+  storageDriver: 'r2' | 'local';
+  uploadedBy: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface QuoteProductLine {
@@ -62,8 +123,12 @@ export interface QuoteRequest {
   emailSent: boolean;
   emailDeliveryNote: string;
   status: QuoteStatus;
+  adminNotes?: string;
   createdAt: string;
+  updatedAt?: string;
 }
+
+export type ContactStatus = 'Nouveau' | 'Traité' | 'Archivé';
 
 export interface ContactMessage {
   id: string;
@@ -73,7 +138,10 @@ export interface ContactMessage {
   subject: string;
   message: string;
   emailSent: boolean;
+  status?: ContactStatus;
+  adminNotes?: string;
   createdAt: string;
+  updatedAt?: string;
 }
 
 export interface SocialLinks {
@@ -81,6 +149,13 @@ export interface SocialLinks {
   instagram: string;
   linkedin: string;
   tiktok: string;
+}
+
+export interface ContactSettings {
+  email: string;
+  phone: string;
+  address: string;
+  hours: string;
 }
 
 export interface PageContent {
@@ -100,7 +175,40 @@ export interface SiteSettings {
   cataloguePdfName: string;
   cataloguePdfUpdatedAt: string;
   socialLinks: SocialLinks;
+  contactInfo?: ContactSettings;
   pageContent: PageContent;
+}
+
+export interface PublicAdminUser {
+  id: string;
+  email: string;
+  name: string;
+  role: AdminRole;
+  isActive: boolean;
+  lastLoginAt: string | null;
+  createdAt: string;
+}
+
+export interface AdminSessionView {
+  id: string;
+  ipAddress: string;
+  userAgent: string;
+  createdAt: string;
+  lastSeenAt: string;
+  expiresAt: string;
+  current: boolean;
+}
+
+export interface AuditLogItem {
+  id: string;
+  actorEmail: string;
+  actorRole: string;
+  action: string;
+  entityType: string;
+  entityId: string;
+  summary: string;
+  ipAddress: string;
+  createdAt: string;
 }
 
 export interface BootstrapData {
@@ -108,8 +216,10 @@ export interface BootstrapData {
   realisationCategories: string[];
   products: ProductItem[];
   realisations: RealisationItem[];
+  poles?: PoleConfigItem[];
   settings: SiteSettings;
   smtpConfigured: boolean;
+  fileStorageAvailable?: boolean;
 }
 
 export interface ServiceDefinition {

@@ -578,22 +578,30 @@ export function QuotePage({ data }: QuotePageProps) {
                   <label htmlFor="quote-file" className="block text-xs font-semibold text-[#073D37] mb-1.5">
                     Joindre un logo, visuel ou document (max. 10 Mo)
                   </label>
-                  <label
-                    htmlFor="quote-file"
-                    className="flex items-center gap-2.5 w-full px-3.5 py-2.5 rounded-md border border-dashed border-[#073D37]/30 bg-[#FAF8F5] text-xs text-[#073D37] cursor-pointer hover:border-[#ED6F2C]"
-                  >
-                    <Upload className="w-4 h-4 text-[#ED6F2C] shrink-0" />
-                    <span className="truncate">
-                      {attachment ? attachment.name : 'PDF, PNG, JPG, SVG, AI, EPS ou ZIP'}
-                    </span>
-                  </label>
-                  <input
-                    id="quote-file"
-                    type="file"
-                    accept=".jpg,.jpeg,.png,.webp,.pdf,.svg,.ai,.eps,.zip"
-                    onChange={(e) => setAttachment(e.target.files?.[0] || null)}
-                    className="sr-only"
-                  />
+                  {data.fileStorageAvailable === false ? (
+                    <div className="w-full px-3.5 py-2.5 rounded-md border border-dashed border-[#073D37]/25 bg-[#FAF8F5] text-xs text-[#172824]/75">
+                      Téléversement temporairement désactivé — envoyez votre demande sans fichier ou transmettez vos visuels à commercial4ever@gmail.com.
+                    </div>
+                  ) : (
+                    <>
+                      <label
+                        htmlFor="quote-file"
+                        className="flex items-center gap-2.5 w-full px-3.5 py-2.5 rounded-md border border-dashed border-[#073D37]/30 bg-[#FAF8F5] text-xs text-[#073D37] cursor-pointer hover:border-[#ED6F2C]"
+                      >
+                        <Upload className="w-4 h-4 text-[#ED6F2C] shrink-0" />
+                        <span className="truncate">
+                          {attachment ? attachment.name : 'PDF, PNG, JPG, SVG, AI, EPS ou ZIP'}
+                        </span>
+                      </label>
+                      <input
+                        id="quote-file"
+                        type="file"
+                        accept=".jpg,.jpeg,.png,.webp,.pdf,.svg,.ai,.eps,.zip"
+                        onChange={(e) => setAttachment(e.target.files?.[0] || null)}
+                        className="sr-only"
+                      />
+                    </>
+                  )}
                 </div>
               </div>
 

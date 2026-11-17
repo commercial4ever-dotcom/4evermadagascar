@@ -1,0 +1,14 @@
+# 1. Copiez ce fichier vers cloudflare/d1-bridge-worker/wrangler.toml
+# 2. NE CRÉEZ PAS de nouvelle base D1 : récupérez le nom exact et le database_id
+#    de votre base D1 existante via `npx wrangler d1 list` ou le Dashboard Cloudflare.
+name = "forever-d1-bridge"
+main = "worker.ts"
+compatibility_date = "2025-05-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "NOM_EXACT_DE_VOTRE_BASE_D1"
+database_id = "UUID_DE_VOTRE_BASE_D1_EXISTANTE"
+
+# Secret serveur obligatoire à définir via Wrangler CLI (ne jamais écrire le secret ici) :
+# npx wrangler secret put BRIDGE_AUTH_TOKEN

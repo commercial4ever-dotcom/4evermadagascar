@@ -1,6 +1,6 @@
 import nodemailer from 'nodemailer';
 import path from 'node:path';
-import fs from 'node:fs';
+import { getObjectBuffer } from './r2.ts';
 import type { ContactMessage, QuoteRequest } from './types.ts';
 
 const RECIPIENT_EMAIL = process.env.QUOTE_RECIPIENT_EMAIL || 'commercial4ever@gmail.com';
@@ -64,12 +64,15 @@ export async function sendQuoteNotification(quote: QuoteRequest): Promise<{ sent
       quote.description || 'Aucune description complémentaire.',
     ].join('\n');
 
-    const attachments: Array<{ filename: string; path: string }> = [];
-    if (quote.attachmentPath && fs.existsSync(quote.attachmentPath)) {
-      attachments.push({
-        filename: quote.attachmentName || path.basename(quote.attachmentPath),
-        path: quote.attachmentPath,
-      });
+    const attachments: Array<{ filename: string; content: Buffer }> = [];
+    if (quote.attachmentKey) {
+      const loaded = await getObjectBuffer(quote.attachmentKey, 'private', quote.attachmentDriver);
+      if (loaded) {
+        attachments.push({
+          filename: quote.attachmentName || path.basename(quote.attachmentKey),
+          content: loaded.buffer,
+        });
+      }
     }
 
     await transporter.sendMail({
